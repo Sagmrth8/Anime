@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>My Games</title>
+<title>Anime Library</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -16,19 +16,19 @@ h1 {
 }
 .grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+  grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
   gap:20px;
   padding:20px;
 }
-.game {
+.card {
   text-align:center;
 }
-.game img {
+.card img {
   width:100%;
-  border-radius:12px;
+  border-radius:14px;
   transition:0.2s;
 }
-.game img:hover {
+.card img:hover {
   transform:scale(1.05);
 }
 a { color:white; text-decoration:none; }
@@ -36,23 +36,73 @@ a { color:white; text-decoration:none; }
 </head>
 
 <body>
-<h1>Games</h1>
+<h1>Anime Collection</h1>
 
 <div class="grid">
-  <div class="game">
-    <a href="games/re4.html">
-      <img src="images/re4.jpg">
-      <p>Resident Evil 4</p>
-    </a>
-  </div>
 
-  <div class="game">
-    <a href="games/silent-hill.html">
-      <img src="images/sh.jpg">
-      <p>Silent Hill</p>
-    </a>
-  </div>
+<div class="card">
+  <a href="anime/one-piece.html">
+    <img src="images/one-piece.jpg">
+    <p>One Piece</p>
+  </a>
 </div>
 
+<div class="card">
+  <a href="anime/conan.html">
+    <img src="images/conan.jpg">
+    <p>Detective Conan</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/death-note.html">
+    <img src="images/death-note.jpg">
+    <p>Death Note</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/steins-gate.html">
+    <img src="images/steins.jpg">
+    <p>Steins;Gate</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/dragon-ball.html">
+    <img src="images/dragonball.jpg">
+    <p>Dragon Ball</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/bleach.html">
+    <img src="images/bleach.jpg">
+    <p>Bleach</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/naruto.html">
+    <img src="images/naruto.jpg">
+    <p>Naruto</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/aot.html">
+    <img src="images/aot.jpg">
+    <p>Attack on Titan</p>
+  </a>
+</div>
+
+<div class="card">
+  <a href="anime/hxh.html">
+    <img src="images/hxh.jpg">
+    <p>Hunter x Hunter</p>
+  </a>
+</div>
+
+</div>
 </body>
 </html>
