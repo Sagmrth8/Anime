@@ -170,4 +170,77 @@
         
         function initializeVideoPlayer() {
             const mainVideo = document.getElementById('mainVideo');
-            const videoSidebar = document.getElementById('
+            const videoSidebar = document.getElementById('videoSidebar');
+            
+            videoSidebar.innerHTML = '';
+            
+            deathNoteVideos.forEach((video, index) => {
+                const thumbnail = document.createElement('img');
+                thumbnail.className = 'video-thumbnail';
+                thumbnail.src = video.file.replace('.mp4', '-thumb.jpg');
+                thumbnail.alt = video.title;
+                thumbnail.title = video.title;
+                
+                if (index === 0) thumbnail.classList.add('active');
+                
+                thumbnail.addEventListener('click', () => {
+                    mainVideo.src = video.file;
+                    mainVideo.load();
+                    document.querySelectorAll('.video-thumbnail').forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    thumbnail.classList.add('active');
+                });
+                
+                videoSidebar.appendChild(thumbnail);
+            });
+        }
+        
+        const audio = document.getElementById('backgroundAudio');
+        const playBtn = document.getElementById('playBtn');
+        
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        }
+        
+        function stopAudio() {
+            audio.pause();
+            audio.currentTime = 0;
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+        
+        const deathNoteEncodedLinks = {
+            google: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZGVhdGgtbm90ZS1saW5r",
+            mega: "aHR0cHM6Ly9tZWdhLm56L2ZpbGUvZGVhdGgtbm90ZS1saW5r",
+            mediafire: "aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9maWxlL2RlYXRoLW5vdGUtbGluaw=="
+        };
+        
+        function decodeAndDownload(platform) {
+            const encodedLink = deathNoteEncodedLinks[platform];
+            if (encodedLink) {
+                const decodedLink = atob(encodedLink);
+                alert(`الرابط المشفر:\n${encodedLink}\n\nالرابط بعد فك التشفير:\n${decodedLink}`);
+            } else {
+                alert('الروابط لهذا الأنمي قيد التحديث!');
+            }
+        }
+        
+        function selectPlatform(platform) {
+            document.querySelectorAll('.platform-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVideoPlayer();
+        });
+    </script>
+</body>
+</html>
