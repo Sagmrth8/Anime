@@ -3,118 +3,867 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أنيمو - تعلم الإنجليزي من الأنمي</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>مركز الأنمي - مجموعة الأنمي العربية</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a1a;
+            --secondary: #1a1a2e;
+            --accent: #e94560;
+            --accent-light: #ff6b81;
+            --text: #f0f0f0;
+            --card-bg: rgba(26, 26, 46, 0.85);
+            --gold: #FFD700;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Homepage Styles */
+        .homepage {
+            min-height: 100vh;
+            background: linear-gradient(rgba(10, 10, 26, 0.9), rgba(26, 26, 46, 0.9)), 
+                        url('https://images.unsplash.com/photo-1618331833071-1c0c6ee3d19e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 4rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 3px 3px 0 var(--accent), 6px 6px 0 rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(to left, var(--accent), var(--gold));
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #aaa;
+            margin-top: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .anime-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 25px rgba(233, 69, 96, 0.4);
+            border-color: var(--accent);
+        }
+
+        .anime-icon {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .anime-name {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.6rem;
+            text-align: center;
+            padding: 18px 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            color: white;
+            font-weight: 700;
+        }
+
+        .anime-genre {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(233, 69, 96, 0.9);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Anime Page Styles */
+        .anime-page {
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .anime-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.9);
+        }
+
+        .anime-content {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            z-index: 1;
+        }
+
+        .anime-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+            align-items: center;
+        }
+
+        .anime-poster {
+            flex: 0 0 320px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+            border: 3px solid var(--accent);
+        }
+
+        .anime-poster img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .anime-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 3.8rem;
+            color: white;
+            text-shadow: 2px 2px 0 var(--accent), 5px 5px 0 rgba(0, 0, 0, 0.7);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .anime-description {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            max-width: 800px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            text-align: justify;
+        }
+
+        .anime-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tag {
+            background: rgba(233, 69, 96, 0.2);
+            color: var(--accent-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            font-weight: 600;
+        }
+
+        /* Properties Section */
+        .properties {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .property-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border-right: 6px solid var(--accent);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .property-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.4rem;
+            color: var(--accent-light);
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .property-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .property-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        /* Recommendations Section */
+        .recommendations {
+            margin-top: 60px;
+        }
+
+        .section-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.8rem;
+            color: white;
+            text-shadow: 2px 2px 0 var(--accent), 4px 4px 0 rgba(0, 0, 0, 0.7);
+            margin-bottom: 35px;
+            border-bottom: 4px solid var(--accent);
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '🎬';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 2rem;
+        }
+
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .rec-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .rec-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .rec-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .rec-card h3 {
+            padding: 18px 10px;
+            text-align: center;
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Home Button */
+        .home-button {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            box-shadow: 0 6px 18px rgba(233, 69, 96, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .home-button:hover {
+            background: #ff2e4f;
+            transform: scale(1.08);
+            box-shadow: 0 10px 25px rgba(233, 69, 96, 0.7);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 35px;
+            margin-top: 70px;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 3px solid var(--accent);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .footer p {
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .arabic-decoration {
+            font-size: 2rem;
+            color: var(--gold);
+            margin: 20px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .title {
+                font-size: 3rem;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+
+            .anime-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .anime-poster {
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .anime-title {
+                font-size: 2.8rem;
+            }
+
+            .anime-tags {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 20px;
+            }
+
+            .anime-title {
+                font-size: 2.2rem;
+            }
+
+            .property-card {
+                padding: 20px;
+            }
+
+            .home-button {
+                padding: 12px 20px;
+                font-size: 1.1rem;
+                top: 20px;
+                right: 20px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .title {
+                font-size: 2rem;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .anime-title {
+                font-size: 1.8rem;
+            }
+
+            .properties {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendation-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Arabic Specific Styles */
+        .arabic-note {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .arabic-note h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Episode Links Section */
+        .episode-links {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 40px;
+            border: 2px solid var(--accent);
+        }
+
+        .episode-links h3 {
+            color: var(--accent-light);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 15px;
+        }
+
+        .episode-btn {
+            background: rgba(233, 69, 96, 0.2);
+            color: white;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 12px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .episode-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
-    <div class="cloud-background">
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-    </div>
+    <!-- Homepage -->
+    <div id="homepage" class="homepage">
+        <div class="header">
+            <h1 class="title">مركز الأنمي</h1>
+            <p class="subtitle">أكبر مكتبة أنمي عربية مجانية على الإنترنت</p>
+            <h1 class="title">هنا راح ترطن انقلش</h1>
+            <p class="subtitle">تعلمك للغة راح يتحسن افاق وسنين ضوئية</p>
 
-    <nav class="nav-bar">
-        <div class="nav-brand">
-            <h1>أنيمو 🎬</h1>
-            <a href="index.html" class="home-button">
-                <i class="fas fa-home"></i> الرئيسية
-            </a>
+            <div class="arabic-note">
+                <h3>مرحباً بكم في عالم الأنمي!</h3>
+                <p>هذا الموقع مخصص لعشاق الأنمي العرب. تجدون هنا أفضل المسلسلات والمواد المرتبطة بها. يمكنكم مشاهدة وتحميل الحلقات بجودة عالية.</p>
+                <h3>مراحب مراحب!</h3>
+                <p>هذا الموقع اجتهاد شخصي مني عشان اقدم لكم افضل تجربة انمي ب أعلى جودة</p>
+            </div>
         </div>
-        
-        <div class="platform-selector">
-            <button class="platform-btn active" onclick="selectPlatform('all')">
-                <i class="fas fa-globe"></i> الكل
-            </button>
-            <button class="platform-btn" onclick="selectPlatform('windows')">
-                <i class="fab fa-windows"></i> ويندوز
-            </button>
-            <button class="platform-btn" onclick="selectPlatform('android')">
-                <i class="fab fa-android"></i> أندرويد
-            </button>
-            <button class="platform-btn" onclick="selectPlatform('ios')">
-                <i class="fab fa-apple"></i> آيفون
-            </button>
-        </div>
-    </nav>
 
-    <section class="welcome-section" id="welcomeSection">
-        <h2 class="welcome-title">مرحبا يا حبيب! 🤗</h2>
-        <p class="welcome-message">
-            ياهلا والله! قلبي يفرح وأنت هنا معانا في عالم الأنمي! 
-            <br><br>
-            هذي المكتبة خصيصاً للي يبون يتعلمون الإنجليزي بطريقة سهلة وممتعة. 
-            شوف الأنمي اللي يعجبك، حمل الحلقات، واتفرج بالإنجليزي مع الترجمة العربية. 
-            <br><br>
-            <strong class="gold-text">الله يوفقك ويقويك على التعلم! 💪</strong>
-        </p>
-        <div class="welcome-note">
-            <i class="fas fa-lightbulb"></i> نصيحة: ابدأ بالأنمي اللي تحبه، ركز على سماع الكلام، وكمل مع الترجمة!
-        </div>
-        
-        <button onclick="removeWelcome()" class="remove-btn">
-            <i class="fas fa-times"></i> اخفي الرسالة الترحيبية
-        </button>
-    </section>
+@@ -530,335 +530,335 @@
 
-    <div class="container">
-        <div class="anime-grid" id="animeGrid">
-            <!-- Cards loaded from anime-data.js -->
+        <div class="footer">
+            <div class="arabic-decoration">﷽</div>
+            <p>صنع بكل <i class="fas fa-heart" style="color: #e94560;"></i> لعشاق الأنمي العرب</p>
+            <p style="margin-top: 15px; color: #aaa;">جميع صور ووصف الأنمي هي لأغراض توضيحية فقط.</p>
+            <p style="margin-top: 10px; color: #aaa;">© 2023 مركز الأنمي العربي. جميع الحقوق محفوظة.</p>
+            <p>صنع بكل <i class="fas fa-heart" style="color: #e94560;"></i> للي يتابعون قناة Samer9 ع اليوتيوب</p>
+            <p style="margin-top: 15px; color: #aaa;">اول تجربة موقع لي لو فيه اشياء اطورها تواصلو معي</p>
+            <p style="margin-top: 10px; color: #aaa;">حقوق النشر محفوظة ،، مدري وش يعني بس كل المواقع تحطها شمعنى انا لا؟؟؟</p>
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-logo">أنيمو 🎬</div>
-        <p class="footer-note">
-            هالموقع صنع بكل حب لعشاق الأنمي العرب. تذكر: التعلم بالإنجليزية من الأنمي من أحلى طرق التعلم!
-            <br>
-            <small>© 2024 - كل الحقوق محفوظة للعرب عاشقي الأنمي</small>
-        </p>
-    </footer>
+    <!-- Anime Page Template (hidden by default) -->
+    <div id="anime-page-template" class="anime-page" style="display: none;">
+        <a href="#" class="home-button" id="home-button">
+            <i class="fas fa-home"></i> الصفحة الرئيسية
+        </a>
 
-    <script src="data/anime-data.js"></script>
-    <script src="scripts.js"></script>
-    
+        <div class="anime-content">
+            <div class="anime-header">
+                <div class="anime-poster">
+                    <img id="anime-poster-img" src="" alt="ملصق الأنمي">
+                </div>
+                <div>
+                    <h1 id="anime-page-title" class="anime-title"></h1>
+
+                    <div class="anime-tags" id="anime-tags">
+                        <!-- Tags will be generated by JavaScript -->
+                    </div>
+
+                    <p id="anime-description" class="anime-description"></p>
+                </div>
+            </div>
+
+            <div class="properties">
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3 class="property-title">عدد الحلقات</h3>
+                    <p id="episodes" class="property-value"></p>
+                </div>
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="property-title">الموسم</h3>
+                    <p id="seasons" class="property-value"></p>
+                </div>
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <h3 class="property-title">الحجم الكلي</h3>
+                    <p id="size" class="property-value"></p>
+                </div>
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="property-title">سنة الإصدار</h3>
+                    <p id="year" class="property-value"></p>
+                </div>
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="property-title">التقييم</h3>
+                    <p id="rating" class="property-value"></p>
+                </div>
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="property-title">الحالة</h3>
+                    <p id="status" class="property-value"></p>
+                </div>
+            </div>
+
+            <!-- Episode Links Section -->
+            <div class="episode-links" id="episode-links">
+                <h3>حلقات الأنمي</h3>
+                <div class="episode-grid" id="episode-grid">
+                    <!-- Episode links will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="recommendations">
+                <h2 class="section-title">قد يعجبك أيضاً</h2>
+                <div class="recommendation-grid" id="recommendations">
+                    <!-- Recommendations will be generated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            generateAnimeCards();
-            
-            if (localStorage.getItem('welcomeHidden') === 'true') {
-                document.getElementById('welcomeSection').classList.add('remove');
+        // Anime Data in Arabic
+        const animeData = [
+            {
+                id: 1,
+                name: "هجوم العمالقة",
+                description: "تدور القصة في عالم حيث البشرية على وشك الانقراض بسبب مخلوقات عملاقة تشبه البشر تُعرف بالعمالقة. تتبع القصة إيرين ييغر وأصدقائه الذين ينضمون إلى الجيش لمحاربة العمالقة بعد تدمير مدينتهم.",
+                episodes: 75,
+                seasons: 4,
+                size: "45 جيجابايت",
+                year: "2013",
+                rating: "9.0/10",
+                status: "مكتمل",
+                poster: "https://i.imgur.com/67RfA2F.jpeg",
+                background: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                genre: ["أكشن", "فانتازيا مظلمة", "دراما"],
+                genre_ar: ["أكشن", "فانتازيا مظلمة", "دراما"]
+            },
+            {
+                id: 2,
+                name: "قاتل الشياطين",
+                description: "يتحول تانجيرو كامادو إلى قاتل شياطين بعد أن ذبحت عائلته على يد الشياطين، وتحولت أخته نيزوكو إلى شيطان. ينطلق في رحلة للعثور على علاج لأخته وهزيمة الشيطان المسؤول.",
+                episodes: 55,
+                seasons: 3,
+                size: "38 جيجابايت",
+                year: "2019",
+                rating: "8.7/10",
+                status: "مستمر",
+                poster: "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                background: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                genre: ["أكشن", "مغامرات", "فانتازيا"],
+                genre_ar: ["أكشن", "مغامرات", "فانتازيا"]
+            },
+            {
+                id: 3,
+                name: "أكاديميتي للأبطال",
+                description: "في عالم حيث يمتلك معظم الناس قوى خارقة تُعرف باسم 'الخاصيات'، يحلم إيزوكو ميدوريا بأن يصبح بطلاً على الرغم من ولادته بدون خاصية. يتم اكتشافه من قبل أعظم بطل في العالم الذي يشاركه خاصيته مع إيزوكو.",
+                episodes: 113,
+                seasons: 6,
+                size: "72 جيجابايت",
+                year: "2016",
+                rating: "8.4/10",
+                status: "مستمر",
+                poster: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                background: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                genre: ["أكشن", "كوميدي", "مدرسي"],
+                genre_ar: ["أكشن", "كوميدي", "مدرسي"]
+            },
+            {
+                id: 4,
+                name: "ون بيس",
+                description: "مونكي دي لوفي وطاقمه من القراصنة يستكشفون الخط الكبير بحثاً عن الكنز الأعظم في العالم المعروف باسم 'ون بيس' ليصبح ملك القراصنة التالي.",
+                episodes: 1000,
+                seasons: 20,
+                size: "450 جيجابايت",
+                year: "1999",
+                rating: "8.7/10",
+                status: "مستمر",
+                poster: "https://images.unsplash.com/photo-1639322537502-9e1e6d1b5b1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                background: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                genre: ["أكشن", "مغامرات", "كوميدي"],
+                genre_ar: ["أكشن", "مغامرات", "كوميدي"]
+            },
+            {
+                id: 5,
+                name: "جوجوتسو كايسن",
+                description: "ينضم الطالب الثانوي يوجي إيتادوري إلى منظمة سرية من ساحرات الجوجوتسو للقضاء على لعنة قوية تدعى ريومين سوكونا، التي أصبح يوجي مضيفها.",
+                episodes: 47,
+                seasons: 2,
+                size: "32 جيجابايت",
+                year: "2020",
+                rating: "8.6/10",
+                status: "مستمر",
+                poster: "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                background: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                genre: ["أكشن", "فانتازيا مظلمة", "خارق للطبيعة"],
+                genre_ar: ["أكشن", "فانتازيا مظلمة", "خارق للطبيعة"]
+            },
+            {
+                id: 6,
+                name: "دفتر الموت",
+                description: "يكتشف طالب ثانوي دفتراً خارقاً للطبيعة يسمح له بقتل أي شخص يكتب اسمه فيه. يقرر استخدامه لتخليص العالم من المجرمين، ولكن محققاً عبقرياً مصمم على إيقافه.",
+                episodes: 37,
+                seasons: 1,
+                size: "25 جيجابايت",
+                year: "2006",
+                rating: "8.9/10",
+                status: "مكتمل",
+                poster: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                background: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+                genre: ["إثارة", "غموض", "نفسي"],
+                genre_ar: ["إثارة", "غموض", "نفسي"]
             }
-        });
-        
+        ];
+
+        // DOM elements
+        const homepage = document.getElementById('homepage');
+        const animeGrid = document.getElementById('anime-grid');
+        const animePageTemplate = document.getElementById('anime-page-template');
+
+        // Generate anime cards on homepage
         function generateAnimeCards() {
-            const animeGrid = document.getElementById('animeGrid');
             animeGrid.innerHTML = '';
-            
+
             animeData.forEach(anime => {
                 const card = document.createElement('div');
                 card.className = 'anime-card';
                 card.innerHTML = `
-                    <a href="${anime.page}" class="anime-card-link">
-                        <div class="anime-poster-container">
-                            <img src="${anime.poster}" alt="${anime.name}" class="anime-poster">
-                            <div class="anime-name">${anime.name}</div>
-                        </div>
-                    </a>
+                    <div class="anime-genre">${anime.genre_ar[0]}</div>
+                    <img src="${anime.poster}" alt="${anime.name}" class="anime-icon">
+                    <h3 class="anime-name">${anime.name}</h3>
                 `;
+
+                card.addEventListener('click', () => {
+                    showAnimePage(anime);
+                });
+
                 animeGrid.appendChild(card);
             });
         }
-        
-        function removeWelcome() {
-            document.getElementById('welcomeSection').classList.add('remove');
-            localStorage.setItem('welcomeHidden', 'true');
-        }
-        
-        function selectPlatform(platform) {
-            document.querySelectorAll('.platform-btn').forEach(btn => {
-                btn.classList.remove('active');
+
+        // Show anime page with details
+        function showAnimePage(anime) {
+            // Hide homepage, show anime page
+            homepage.style.display = 'none';
+            animePageTemplate.style.display = 'block';
+
+            // Set anime page background
+            animePageTemplate.style.backgroundImage = `url(${anime.background})`;
+
+            // Fill anime details
+            document.getElementById('anime-page-title').textContent = anime.name;
+            document.getElementById('anime-description').textContent = anime.description;
+            document.getElementById('anime-poster-img').src = anime.poster;
+            document.getElementById('anime-poster-img').alt = anime.name;
+
+            // Fill tags
+            const tagsContainer = document.getElementById('anime-tags');
+            tagsContainer.innerHTML = '';
+            anime.genre_ar.forEach(genre => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = genre;
+                tagsContainer.appendChild(tag);
             });
-            event.target.classList.add('active');
+
+            // Fill properties
+            document.getElementById('episodes').textContent = anime.episodes;
+            document.getElementById('seasons').textContent = anime.seasons;
+            document.getElementById('size').textContent = anime.size;
+            document.getElementById('year').textContent = anime.year;
+            document.getElementById('rating').textContent = anime.rating;
+            document.getElementById('status').textContent = anime.status;
+
+            // Generate episode links
+            generateEpisodeLinks(anime.episodes);
+
+            // Generate recommendations (exclude current anime)
+            generateRecommendations(anime.id);
+
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
+
+        // Generate episode links
+        function generateEpisodeLinks(totalEpisodes) {
+            const episodeGrid = document.getElementById('episode-grid');
+            episodeGrid.innerHTML = '';
+
+            // Show only first 30 episodes or total episodes if less
+            const episodesToShow = Math.min(totalEpisodes, 30);
+
+            for (let i = 1; i <= episodesToShow; i++) {
+                const episodeBtn = document.createElement('div');
+                episodeBtn.className = 'episode-btn';
+                episodeBtn.textContent = i;
+                episodeBtn.title = `الحلقة ${i}`;
+
+                episodeBtn.addEventListener('click', () => {
+                    alert(`ستتم إضافة رابط تحميل الحلقة ${i} هنا في النسخة الكاملة`);
+                });
+
+                episodeGrid.appendChild(episodeBtn);
+            }
+
+            // Add "More" button if there are more episodes
+            if (totalEpisodes > 30) {
+                const moreBtn = document.createElement('div');
+                moreBtn.className = 'episode-btn';
+                moreBtn.textContent = 'المزيد';
+                moreBtn.style.gridColumn = 'span 2';
+                moreBtn.style.background = 'rgba(255, 215, 0, 0.2)';
+                moreBtn.style.borderColor = 'var(--gold)';
+
+                moreBtn.addEventListener('click', () => {
+                    alert(`هناك ${totalEpisodes} حلقة في المجموع. في النسخة الكاملة ستكون جميع الحلقات متاحة.`);
+                });
+
+                episodeGrid.appendChild(moreBtn);
+            }
+        }
+
+        // Generate recommendations
+        function generateRecommendations(currentAnimeId) {
+            const recommendationsGrid = document.getElementById('recommendations');
+            recommendationsGrid.innerHTML = '';
+
+            // Filter out current anime and get 4 random recommendations
+            const recommendations = animeData
+                .filter(anime => anime.id !== currentAnimeId)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 4);
+
+            recommendations.forEach(anime => {
+                const recCard = document.createElement('div');
+                recCard.className = 'rec-card';
+                recCard.innerHTML = `
+                    <img src="${anime.poster}" alt="${anime.name}">
+                    <h3>${anime.name}</h3>
+                `;
+
+                recCard.addEventListener('click', () => {
+                    showAnimePage(anime);
+                });
+
+                recommendationsGrid.appendChild(recCard);
+            });
+        }
+
+        // Home button functionality
+        document.getElementById('home-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            homepage.style.display = 'block';
+            animePageTemplate.style.display = 'none';
+            window.scrollTo(0, 0);
+        });
+
+        // Initialize the page
+        generateAnimeCards();
     </script>
 </body>
 </html>
