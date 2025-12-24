@@ -1,246 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نوتة الموت - أنيمو</title>
-    <link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="cloud-background">
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-        <div class="cloud"></div>
-    </div>
-
-    <div class="anime-background" id="animeBackground"></div>
-
-    <nav class="nav-bar">
-        <div class="nav-brand">
-            <h1>نوتة الموت 🎬</h1>
-            <a href="../index.html" class="home-button">
-                <i class="fas fa-home"></i> الرئيسية
-            </a>
-        </div>
-        
-        <div class="platform-selector">
-            <button class="platform-btn active" onclick="selectPlatform('all')">
-                <i class="fas fa-globe"></i> الكل
-            </button>
-            <button class="platform-btn" onclick="selectPlatform('windows')">
-                <i class="fab fa-windows"></i> ويندوز
-            </button>
-            <button class="platform-btn" onclick="selectPlatform('android')">
-                <i class="fab fa-android"></i> أندرويد
-            </button>
-            <button class="platform-btn" onclick="selectPlatform('ios')">
-                <i class="fab fa-apple"></i> آيفون
-            </button>
-        </div>
-    </nav>
-
-    <div class="audio-player">
-        <div class="audio-controls">
-            <button class="audio-btn" onclick="toggleAudio()" id="playBtn">
-                <i class="fas fa-play"></i>
-            </button>
-            <button class="audio-btn" onclick="stopAudio()">
-                <i class="fas fa-stop"></i>
-            </button>
-            <span id="audioTitle">🎵 نوتة الموت OST</span>
-        </div>
-        <audio id="backgroundAudio" loop>
-            <source src="../assets/audio/deathnote-ost.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-    <div class="anime-page">
-        <div class="container">
-            <div class="anime-content">
-                <div class="anime-header">
-                    <div class="anime-poster-large">
-                        <img src="../assets/posters/deathnote-poster.jpg" alt="نوتة الموت">
-                    </div>
-                    
-                    <div class="anime-info">
-                        <h1 class="anime-title">نوتة الموت (Death Note)</h1>
-                        <p class="anime-description">
-                            ياه! هالأنمي ياخي رهيب! قصة عبقري يكتشف دفتر لو يكتب فيه اسم أحد يموت!
-                            والطريقة اللي يدور فيها الشرطي له تخليك متشوق من أول حلقة لآخر حلقة.
-                            أنصحك تتعلم منه الإنجليزية لأن الحوارات ذكية مرة.
-                        </p>
-                        
-                        <div class="properties-grid">
-                            <div class="property">
-                                <div class="property-label">عدد الحلقات</div>
-                                <div class="property-value">37</div>
-                            </div>
-                            <div class="property">
-                                <div class="property-label">عدد المواسم</div>
-                                <div class="property-value">1</div>
-                            </div>
-                            <div class="property">
-                                <div class="property-label">الحجم الكلي</div>
-                                <div class="property-value">25 جيجا</div>
-                            </div>
-                            <div class="property">
-                                <div class="property-label">سنة الإصدار</div>
-                                <div class="property-value">2006</div>
-                            </div>
-                            <div class="property">
-                                <div class="property-label">التقييم</div>
-                                <div class="property-value">9.0/10</div>
-                            </div>
-                            <div class="property">
-                                <div class="property-label">الحالة</div>
-                                <div class="property-value">مكتمل</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="video-section">
-                    <h3 style="color: var(--gold); margin-bottom: 20px; font-size: 1.8rem;">
-                        <i class="fas fa-video"></i> شوف الدبلجة بالإنجليزي
-                    </h3>
-                    <div class="video-container">
-                        <div class="main-video">
-                            <video id="mainVideo" controls>
-                                <source src="../assets/videos/deathnote/clip1.mp4" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="video-sidebar" id="videoSidebar"></div>
-                    </div>
-                </div>
-
-                <div class="download-section">
-                    <h3 class="download-title">
-                        <i class="fas fa-download"></i> حمل الأنمي للتعلم
-                    </h3>
-                    <div class="download-platforms">
-                        <div class="download-platform google-drive">
-                            <i class="fab fa-google-drive platform-icon"></i>
-                            <h4>جوجل درايف</h4>
-                            <p>الروابط مشفرة بـ Base64</p>
-                            <button class="download-btn" onclick="decodeAndDownload('google')">
-                                فك التشفير والتحميل
-                            </button>
-                        </div>
-                        
-                        <div class="download-platform mega">
-                            <i class="fas fa-cloud-download-alt platform-icon"></i>
-                            <h4>ميجا</h4>
-                            <p>تحميل سريع ومباشر</p>
-                            <button class="download-btn" onclick="decodeAndDownload('mega')">
-                                فك التشفير والتحميل
-                            </button>
-                        </div>
-                        
-                        <div class="download-platform mediafire">
-                            <i class="fas fa-fire platform-icon"></i>
-                            <h4>ميديا فاير</h4>
-                            <p>روبات متعددة</p>
-                            <button class="download-btn" onclick="decodeAndDownload('mediafire')">
-                                فك التشفير والتحميل
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-logo">نوتة الموت 🎬</div>
-        <p class="footer-note">
-            الأنمي هذا يعلمك الإنجليزية البوليسية والذكاء في الحوار. استمتع وتعلم!
-        </p>
-    </footer>
-
-    <script>
-        document.getElementById('animeBackground').style.backgroundImage = 
-            "url('../assets/backgrounds/deathnote-bg.jpg')";
-        
-        const deathNoteVideos = [
-            { title: "المشهد الأشهر", file: "../assets/videos/deathnote/clip1.mp4" },
-            { title: "الذكاء في الحوار", file: "../assets/videos/deathnote/clip2.mp4" }
-        ];
-        
-        function initializeVideoPlayer() {
-            const mainVideo = document.getElementById('mainVideo');
-            const videoSidebar = document.getElementById('videoSidebar');
-            
-            videoSidebar.innerHTML = '';
-            
-            deathNoteVideos.forEach((video, index) => {
-                const thumbnail = document.createElement('img');
-                thumbnail.className = 'video-thumbnail';
-                thumbnail.src = video.file.replace('.mp4', '-thumb.jpg');
-                thumbnail.alt = video.title;
-                thumbnail.title = video.title;
-                
-                if (index === 0) thumbnail.classList.add('active');
-                
-                thumbnail.addEventListener('click', () => {
-                    mainVideo.src = video.file;
-                    mainVideo.load();
-                    document.querySelectorAll('.video-thumbnail').forEach(t => {
-                        t.classList.remove('active');
-                    });
-                    thumbnail.classList.add('active');
-                });
-                
-                videoSidebar.appendChild(thumbnail);
-            });
-        }
-        
-        const audio = document.getElementById('backgroundAudio');
-        const playBtn = document.getElementById('playBtn');
-        
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-            } else {
-                audio.pause();
-                playBtn.innerHTML = '<i class="fas fa-play"></i>';
-            }
-        }
-        
-        function stopAudio() {
-            audio.pause();
-            audio.currentTime = 0;
-            playBtn.innerHTML = '<i class="fas fa-play"></i>';
-        }
-        
-        const deathNoteEncodedLinks = {
-            google: "aHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZGVhdGgtbm90ZS1saW5r",
-            mega: "aHR0cHM6Ly9tZWdhLm56L2ZpbGUvZGVhdGgtbm90ZS1saW5r",
-            mediafire: "aHR0cHM6Ly93d3cubWVkaWFmaXJlLmNvbS9maWxlL2RlYXRoLW5vdGUtbGluaw=="
-        };
-        
-        function decodeAndDownload(platform) {
-            const encodedLink = deathNoteEncodedLinks[platform];
-            if (encodedLink) {
-                const decodedLink = atob(encodedLink);
-                alert(`الرابط المشفر:\n${encodedLink}\n\nالرابط بعد فك التشفير:\n${decodedLink}`);
-            } else {
-                alert('الروابط لهذا الأنمي قيد التحديث!');
-            }
-        }
-        
-        function selectPlatform(platform) {
-            document.querySelectorAll('.platform-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeVideoPlayer();
-        });
-    </script>
-</body>
-</html>
